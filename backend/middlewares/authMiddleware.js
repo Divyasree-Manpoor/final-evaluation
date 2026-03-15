@@ -4,8 +4,9 @@ export const protect = (req, res, next) => {
 
   const header = req.headers.authorization
 
-  if (!header) {
-    return res.status(401).json({ message: "No token" })
+  // check if token exists
+  if (!header || !header.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "No token provided" })
   }
 
   const token = header.split(" ")[1]
@@ -18,7 +19,8 @@ export const protect = (req, res, next) => {
 
     next()
 
-  } catch {
-    res.status(401).json({ message: "Invalid Token" })
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" })
   }
+
 }

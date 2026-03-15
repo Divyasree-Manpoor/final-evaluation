@@ -1,10 +1,13 @@
 import express from "express"
 import { protect } from "../middlewares/authMiddleware.js"
-import { getBalance, transferMoney } from "../controllers/accountController.js"
+import { getBalance, transferMoney, getStatement } from "../controllers/accountController.js"
 
 const router = express.Router()
 
 router.get("/balance", protect, getBalance)
+
 router.post("/transfer", protect, transferMoney)
+
+router.get("/statement", protect, getStatement)
 
 export default router
